@@ -1,5 +1,6 @@
 // import { setStaticParamsLocale } from 'next-international/server';
 import { getI18n, getScopedI18n, getCurrentLocale } from '../../locales/server';
+import { getI18n as getI18nGlobal, getScopedI18n as getScopedI18nGlobal } from 'next-international/server';
 import Client from './client';
 import { Provider } from './provider';
 
@@ -17,6 +18,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   const t = await getI18n();
   const t2 = await getScopedI18n('scope.more');
+  const t3 = await getI18nGlobal();
+  const t4 = await getScopedI18nGlobal('scope.more');
   const currentLocale = getCurrentLocale();
 
   return (
@@ -30,6 +33,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <span>{currentLocale}</span>
       </p>
       <p>Hello: {t('hello')}</p>
+      <p>Hello t3: {t3('hello')}</p>
       <p>
         Hello:{' '}
         {t('welcome', {
@@ -87,6 +91,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <p>
         {t2('stars', {
           count: 2,
+        })}
+      </p>
+      <p>
+        {t4('stars', {
+          count: 3,
         })}
       </p>
     </div>

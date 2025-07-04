@@ -1,13 +1,17 @@
 import 'client-only';
 import type { ExplicitLocales, FlattenLocale, GetLocaleType, ImportedLocales } from 'international-types';
 import type { I18nClientConfig, LocaleContext } from '../../types';
-import { createI18nProviderClient } from './create-i18n-provider-client';
+import type { Context } from 'react';
 import { createContext } from 'react';
-import { createUsei18n } from '../../common/create-use-i18n';
-import { createScopedUsei18n } from '../../common/create-use-scoped-i18n';
+import { createI18nProviderClient } from './create-i18n-provider-client';
+import { createUsei18n, createUsei18nGlobal } from '../../common/create-use-i18n';
+import { createScopedUsei18n, createScopedUsei18nGlobal } from '../../common/create-use-scoped-i18n';
 import { createUseChangeLocale } from './create-use-change-locale';
 import { createDefineLocale } from '../../common/create-define-locale';
 import { createUseCurrentLocale } from './create-use-current-locale';
+
+// 模块级别的Context缓存
+let sharedI18nClientContext: any = null;
 
 export function createI18nClient<Locales extends ImportedLocales, OtherLocales extends ExplicitLocales | null = null>(
   locales: Locales,
@@ -19,9 +23,12 @@ export function createI18nClient<Locales extends ImportedLocales, OtherLocales e
   type LocalesKeys = OtherLocales extends ExplicitLocales ? keyof OtherLocales : keyof Locales;
 
   const localesKeys = Object.keys(locales) as LocalesKeys[];
+  if (!sharedI18nClientContext) {
+    // @ts-expect-error deep type
+    sharedI18nClientContext = createContext<LocaleContext<Locale> | null>(null);
+  }
 
-  // @ts-expect-error deep type
-  const I18nClientContext = createContext<LocaleContext<Locale> | null>(null);
+  const I18nClientContext = sharedI18nClientContext as Context<LocaleContext<Locale> | null>;
 
   const useCurrentLocale = createUseCurrentLocale<LocalesKeys>(localesKeys, config);
   const I18nProviderClient = createI18nProviderClient<Locale>(I18nClientContext, locales, config.fallbackLocale);
@@ -40,3 +47,14 @@ export function createI18nClient<Locales extends ImportedLocales, OtherLocales e
     useCurrentLocale,
   };
 }
+
+// 导出函数用于清除缓存（测试时可能需要）
+export function clearI18nClientContextCache() {
+  sharedI18nClientContext = null;
+}
+
+// 导出共享Context的引用
+export { sharedI18nClientContext };
+
+export const useI18n = createUsei18nGlobal();
+export const useScopedI18n = createScopedUsei18nGlobal();

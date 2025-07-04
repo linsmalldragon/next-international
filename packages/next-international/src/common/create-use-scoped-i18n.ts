@@ -17,3 +17,14 @@ export function createScopedUsei18n<Locale extends BaseLocale>(
     return useMemo(() => createT(context, scope), [context, scope]);
   };
 }
+export function createScopedUsei18nGlobal() {
+  return function useScopedI18nGlobal(scope: Scope) {
+    const context = useContext(sharedI18nClientContext);
+
+    if (!context) {
+      throw new Error('`useI18n` must be used inside `I18nProvider`');
+    }
+
+    return useMemo(() => createT(context, scope), [context, scope]);
+  };
+}

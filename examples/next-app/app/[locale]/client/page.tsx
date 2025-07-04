@@ -1,11 +1,13 @@
 'use client';
 
 import { useI18n, useScopedI18n, useChangeLocale, useCurrentLocale } from '../../../locales/client';
+import { useI18n as useI18nGlobal } from 'next-international/client';
 
 export default function Client() {
   const t = useI18n();
   const changeLocale = useChangeLocale();
   const t2 = useScopedI18n('scope.more');
+  const t3 = useI18nGlobal('scope.more');
   const locale = useCurrentLocale();
 
   return (
@@ -16,6 +18,7 @@ export default function Client() {
         <span>{locale}</span>
       </p>
       <p>Hello: {t('hello')}</p>
+      <p>Hello3: {t3('hello')}</p>
       <p>
         Hello:{' '}
         {t('welcome', {
