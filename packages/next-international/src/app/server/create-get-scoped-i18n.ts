@@ -67,6 +67,6 @@ export function createGetScopedI18nGlobal() {
         locale,
       } as LocaleContext<Locale>,
       scope,
-    );
+    ) as any;
   };
 }

@@ -21,3 +21,11 @@ export function createUseCurrentLocale<LocalesKeys>(locales: LocalesKeys[], conf
     }, [segment]);
   };
 }
+
+export function createUseCurrentLocaleGlobal() {
+  return function useCurrentLocaleGlobal(segmentName?: string): string {
+    const params = useParams();
+    const segment = params[segmentName ?? DEFAULT_SEGMENT_NAME];
+    return segment as string;
+  };
+}

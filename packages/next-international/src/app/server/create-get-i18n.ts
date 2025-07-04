@@ -58,6 +58,6 @@ export function createGetI18nGlobal() {
         locale,
       } as LocaleContext<Locale>,
       undefined,
-    );
+    ) as any;
   };
 }

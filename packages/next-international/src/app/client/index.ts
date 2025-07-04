@@ -8,7 +8,7 @@ import { createUsei18n, createUsei18nGlobal } from '../../common/create-use-i18n
 import { createScopedUsei18n, createScopedUsei18nGlobal } from '../../common/create-use-scoped-i18n';
 import { createUseChangeLocale } from './create-use-change-locale';
 import { createDefineLocale } from '../../common/create-define-locale';
-import { createUseCurrentLocale } from './create-use-current-locale';
+import { createUseCurrentLocale, createUseCurrentLocaleGlobal } from './create-use-current-locale';
 
 // 模块级别的Context缓存
 let sharedI18nClientContext: any = null;
@@ -58,3 +58,4 @@ export { sharedI18nClientContext };
 
 export const useI18n = createUsei18nGlobal();
 export const useScopedI18n = createScopedUsei18nGlobal();
+export const useCurrentLocale = createUseCurrentLocaleGlobal();

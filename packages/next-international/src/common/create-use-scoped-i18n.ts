@@ -25,6 +25,6 @@ export function createScopedUsei18nGlobal() {
       throw new Error('`useI18n` must be used inside `I18nProvider`');
     }
 
-    return useMemo(() => createT(context, scope), [context, scope]);
+    return useMemo(() => createT(context, scope), [context, scope]) as any;
   };
 }

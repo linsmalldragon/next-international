@@ -24,6 +24,6 @@ export function createUsei18nGlobal() {
       throw new Error('`useI18n` must be used inside `I18nProvider`');
     }
 
-    return useMemo(() => createT(context, undefined), [context]);
+    return useMemo(() => createT(context, undefined), [context]) as any;
   };
 }
