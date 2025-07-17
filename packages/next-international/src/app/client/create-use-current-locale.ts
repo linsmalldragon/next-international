@@ -7,7 +7,7 @@ import { error } from '../../helpers/log';
 export function createUseCurrentLocale<LocalesKeys>(locales: LocalesKeys[], config: I18nClientConfig) {
   return function useCurrentLocale() {
     const params = useParams();
-    const segment = params[config.segmentName ?? DEFAULT_SEGMENT_NAME];
+    const segment = params?.[config.segmentName ?? DEFAULT_SEGMENT_NAME];
 
     return useMemo(() => {
       for (const locale of locales) {
@@ -25,7 +25,7 @@ export function createUseCurrentLocale<LocalesKeys>(locales: LocalesKeys[], conf
 export function createUseCurrentLocaleGlobal() {
   return function useCurrentLocaleGlobal(segmentName?: string): string {
     const params = useParams();
-    const segment = params[segmentName ?? DEFAULT_SEGMENT_NAME];
+    const segment = params?.[segmentName ?? DEFAULT_SEGMENT_NAME];
     return segment as string;
   };
 }

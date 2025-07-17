@@ -1,6 +1,6 @@
 {
   "name": "next-international",
-  "version": "1.3.5-linsmalldragon-fork",
+  "version": "1.3.7-linsmalldragon-fork",
   "description": "Type-safe internationalization (i18n) for Next.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -3,6 +3,7 @@ import { useContext, useMemo } from 'react';
 import type { BaseLocale, Scopes } from 'international-types';
 import type { LocaleContext } from '../types';
 import { createT } from '../common/create-t';
+import { sharedI18nClientContext } from '../app/client';
 
 export function createScopedUsei18n<Locale extends BaseLocale>(
   I18nClientContext: Context<LocaleContext<Locale> | null>,
